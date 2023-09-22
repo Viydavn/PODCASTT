@@ -79,7 +79,7 @@ else{
   placeholder = "Password"
   type = "password"   
  />
- <Button text = {"Login"} onClick={handleLogin}></Button>
+ <Button text = {loading ? "Loading . .":"Login"} onClick={handleLogin}></Button>
     
     </>
   )
