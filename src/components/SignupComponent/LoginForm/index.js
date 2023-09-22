@@ -15,11 +15,14 @@ function LoginForm() {
 const [email,setEmail] = useState("");
 const [password,setPassword] = useState("");
 
+const [loading,setLoading] = useState(false);
 const dispatch = useDispatch();
 const navigate = useNavigate();
 
 const handleLogin = async () =>{
   console.log("Handling Login");
+  setLoading(true);
+  if(password && password){
   try{
     // login users account
     const userCredential = await signInWithEmailAndPassword(
@@ -44,12 +47,18 @@ const handleLogin = async () =>{
     );
   //  success message
     toast.success("User Login Successful!");
-
+    setLoading(false);
         navigate("/profile");
     }
   catch(e){
     console.log("error",e);
+    setLoading(false);
+    toast.error("Please enter correct credentials");
   
+}}
+else{
+  toast.error("Make sure to enter email and password");
+  setLoading(false);
 }
 };
 
