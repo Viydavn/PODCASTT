@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import { useSelector,useDispatch } from 'react-redux';
-// import { setUser } from '../slices/userSlice';
-// import {auth,db} from "../firebase"
+import { setUser } from '../slices/userSlice';
+import {auth,db} from "../firebase"
 import Header from '../components/common/Header';
 
 function Profile() {

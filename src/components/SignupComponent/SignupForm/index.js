@@ -15,6 +15,7 @@ const [fullName,setFullName] = useState("");
 const [email,setEmail] = useState("");
 const [password,setPassword] = useState("");
 const [confirmPassword,setConfirmPassword] = useState("");
+const [loading,setLoading] = useState(false);
 const navigate = useNavigate();
 // const [fileURL,setFileURL] = useState("");
 
@@ -22,6 +23,7 @@ const dispatch = useDispatch();
 
 const handleSignup = async () =>{
     console.log("Handling Signup");
+    setLoading(true);
   if(password===confirmPassword && password.length>=6){
     try{
       // creating users account
@@ -47,16 +49,28 @@ const handleSignup = async () =>{
         email: user.email,
         uid: user.uid,}));
     
-        toast.success("User Login Successful!");
-
+        toast.success("User has been created!");
+        setLoading(false);
           navigate("/profile");
       }
     catch(e){
       console.log("error",e);
+      toast.error(e);
     
   }
 }else{
     // throw an error
+    if(password!=confirmPassword){
+      toast.error(
+      "Please Make Sure your password and confirm Password matches."  
+      )
+    }
+    else if (password.length<6){
+      toast.error(
+        "Please Choose password having more than 5 digits"
+      )
+    }
+    setLoading(false);
   }
 };
 
@@ -87,7 +101,7 @@ const handleSignup = async () =>{
   type = "password"   
  />
 
- <Button text = {"Signup"} onClick={handleSignup}></Button>
+ <Button text = {loading ? "Loading . .":"Signup"} disable = {loading}onClick={handleSignup}></Button>
     
     </>
   )
