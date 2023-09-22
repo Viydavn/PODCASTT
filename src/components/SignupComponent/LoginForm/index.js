@@ -1,15 +1,59 @@
 import React, {useState} from 'react'
 import InputComponent from '../../common/Input';
 import Button from '../../common/Button';
+import {auth, db,storage} from "../../../firebase";
+import {signInWithEmailAndPassword,} from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { doc, setDoc,getDoc } from 'firebase/firestore';
+import { setUser } from "../../../slices/userSlice";
+import { toast } from 'react-toastify';
+
 
 function LoginForm() {
     
 const [email,setEmail] = useState("");
 const [password,setPassword] = useState("");
 
-const handleLogin = () =>{
-    console.log("Handling Login");
+const dispatch = useDispatch();
+const navigate = useNavigate();
+
+const handleLogin = async () =>{
+  console.log("Handling Login");
+  try{
+    // login users account
+    const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+      const user = userCredential.user;
+      console.log("user",user);
+
+    // saving users details
+    const userDoc = await getDoc (doc(db,"users",user.uid));
+    const userData = userDoc.data();
+   
+    // Save data in the redux, call the redux action
+    dispatch(
+      setUser({
+      name: userData.name,
+      email: userData.email,
+      uid: user.uid,
+    })
+    );
+  //  success message
+    toast.success("User Login Successful!");
+
+        navigate("/profile");
+    }
+  catch(e){
+    console.log("error",e);
+  
+}
 };
+
+
 
   return (
     <>
