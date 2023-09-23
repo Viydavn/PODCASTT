@@ -1,10 +1,12 @@
 import {configureStore} from "@reduxjs/toolkit";
 
-import useReducer from "./slices/userSlice";
+import userReducer from "./slices/userSlice"
+import podcastReducer from "./slices/podcastSlice";
 
 
 export default configureStore({
     reducer:{
-        user :useReducer,
+        user :userReducer,
+        podcasts: podcastReducer,
     },
 });

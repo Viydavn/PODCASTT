@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import PrivateRoutes from './components/common/PrivateRoutes';
 import CreateAPodcast from './pages/CreateAPodcastForm';
 import CreateAPodcastPage from './pages/CreateAPodcastForm';
-import Podcasts from './components/StartAPodcast/Podcasts';
+import PodcastsPage from './pages/Podcasts';
 
 
 function App() {
@@ -59,7 +59,7 @@ function App() {
         <Route element ={<PrivateRoutes />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/create-a-podcast" element={<CreateAPodcastPage />}/>
-        <Route path="/podcasts" element={<Podcasts />} />
+        <Route path="/podcasts" element={<PodcastsPage />} />
         {/* 
         <Route path="/podcast/:podcastId" element={<PodcastDetails />}/>
         <Route 
