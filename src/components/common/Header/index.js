@@ -11,7 +11,7 @@ function Header() {
       <div className='links'> 
         <Link to='/' className={currentPath === "/" ? "active" : ""}> Signup</Link>
         <Link to='/podcasts' className={currentPath === "/Podcasts" ? "active" : ""}> Podcasts</Link>
-        <Link to='/start-a-podcast' className={currentPath === "/Start-A-Podcast" ? "active" : ""}> Start A Podcast</Link>
+        <Link to='/create-a-podcast' className={currentPath === "/create-a-podcast" ? "active" : ""}> Create A Podcast</Link>
         <Link to='/profile' className={currentPath === "/Profile" ? "active" : ""}> Profile</Link>
       </div>
     </div>
