@@ -14,7 +14,7 @@ function FileInput( {accept , id, fileHandleFnc,text}) {
     <label htmlFor= {id} 
     className= 'custom-input'
     >
-    {fileSelected ? fileSelected : text}
+    {fileSelected ? `${fileSelected} is selected` : text}
     </label>
     <input 
         type = "file"
