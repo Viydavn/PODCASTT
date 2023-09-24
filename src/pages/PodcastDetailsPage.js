@@ -5,7 +5,8 @@ import {db,auth} from "./../firebase";
 import { doc, getDoc ,collection,onSnapshot, query} from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import Button from '../components/common/Button';
-import EpisodeDetails from '../components/common/Podcasts/EpisodeDetails';
+import EpisodeDetails from '../components/Podcasts/EpisodeDetails';
+import AudioPlayer from '../components/Podcasts/AudioPlayer';
 
 
 
@@ -13,6 +14,7 @@ function PodcastDetailsPage() {
   const { id } = useParams();
   const [podcast,setPodcast] = useState({});
   const [episodes,setEpisodes] = useState([]);
+  const [playingFile,setPlayingFile] = useState("");
   const navigate = useNavigate();
   console.log("ID", id);
 
@@ -89,13 +91,13 @@ return (
               title={episode.title}
               description = {episode.description}
               audioFile = {episode.audioFile}
-              onClick ={(file)=>console.log("Playing File "+file)} />
+              onClick ={(file)=>setPlayingFile(file)} />
             )
           })}</>: <p>No Episodes</p>}
           </>
     ) } 
           </div>
- 
+          {playingFile && <AudioPlayer audioSrc={playingFile} image={podcast.displayImage} />}
       </div>
 );
 }

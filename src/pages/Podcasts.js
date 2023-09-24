@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { collection, onSnapshot, query} from "firebase/firestore";
 import { db } from "../firebase";
 import { setPodcasts } from "../slices/podcastSlice.js";
-import PodcastCard from "../components/common/Podcasts/PostcastCard/index.js";
+import PodcastCard from "../components/Podcasts/PostcastCard/index.js";
 import InputComponent from "../components/common/Input/index.js";
 
 
