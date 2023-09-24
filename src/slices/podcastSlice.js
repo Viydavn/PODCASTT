@@ -1,24 +1,18 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    podcasts :[],
+  podcasts: [],
 };
 
 const podcastSlice = createSlice({
-    name:"podcasts",
-    initialState,
-    reducers: {
-        setPodcasts: (state,action)=>{
-            state.podcasts = action.payload;
-        },
-        getPodcasts: (state,action)=>{
-            state.user = action.payload;
-        },
-        clearPodcasts:(state)=>{
-            state.user =null;
-        },
-    }
+  name: "podcasts",
+  initialState,
+  reducers: {
+    setPodcasts: (state, action) => {
+      state.podcasts = action.payload;
+    },
+  },
 });
 
-export const {setPodcasts,getPodcasts,clearPodcasts} = podcastSlice.actions;
+export const { setPodcasts } = podcastSlice.actions;
 export default podcastSlice.reducer;

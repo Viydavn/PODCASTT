@@ -31,10 +31,8 @@ function CreatePodcastForm() {
               storage,
               `podcasts/${auth.currentUser.uid}/${Date.now()}`
             );
-            const uploaded = await uploadBytes(displayImageRef,displayImage);
-            console.log(uploaded);
-            toast.success("File uploaded");
-  
+            await uploadBytes(displayImageRef,displayImage);
+            
             const displayImageUrl =await getDownloadURL(displayImageRef);
             console.log("banner Image",displayImageUrl);
             
@@ -43,12 +41,9 @@ function CreatePodcastForm() {
               storage,
               `podcasts/${auth.currentUser.uid}/${Date.now()}`
             );
-            const uploadedd = await uploadBytes(bannerImageRef,bannerImage);
-            console.log(uploadedd);
-            toast.success("File uploaded");
-  
+            await uploadBytes(bannerImageRef,bannerImage);
+
             const bannerImageUrl =await getDownloadURL(bannerImageRef);
-            console.log("banner Image",bannerImageUrl);
             
             const podcastData = {
               title: title,
@@ -58,11 +53,11 @@ function CreatePodcastForm() {
               createdBy: auth.currentUser.uid,
             }
             const docRef = await addDoc(collection(db, "Podcasts"), podcastData);
+            toast.success("Podcast Created!!!");
             setTitle("");
             setDesc("");
             setBannerImage(null);
             setDisplayImage(null);
-            toast.success("Podcast Created!!!");
             setLoading(false);
           }
           catch(e){

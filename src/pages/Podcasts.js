@@ -1,18 +1,15 @@
 import React, { useEffect } from "react";
-import Header from "./../components/common/Header/index.js";
-import {
-  querySnapshot,
-  collection,
-  onSnapshot,
-  query,
-} from "firebase/firestore";
-import { setPodcasts } from "../slices/podcastSlice.js";
+import Header from "../components/common/Header/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { db } from "./../firebase.js";
+import { collection, onSnapshot, query} from "firebase/firestore";
+import { db } from "../firebase";
+import { setPodcasts } from "../slices/podcastSlice.js";
+import PodcastCard from "../components/common/Podcasts/PostcastCard/index.js";
 
 function PodcastsPage() {
   const dispatch = useDispatch();
   const podcasts = useSelector((state) => state.podcasts.podcasts);
+  // const [search, setSearch] = useState("");
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -25,26 +22,35 @@ function PodcastsPage() {
         dispatch(setPodcasts(podcastsData));
       },
       (error) => {
-        console.error("Error in fetching podcasts:", error);
+        console.error("Error fetching podcasts:", error);
       }
     );
+
     return () => {
       unsubscribe();
     };
   }, [dispatch]);
- 
+
   console.log(podcasts);
   return (
     <div>
       <Header />
       <div className="input-wrapper" style={{ marginTop: "2rem" }}>
         <h1> Discover Podcasts </h1>
-        {podcasts!=null && podcasts.length > 1 ? (
-          <>
-            {podcasts.map((item) => {
-              return <p>{item.title}</p>;
-            })}
-          </>
+        {podcasts.length>0 ? (
+          <div className="podcasts-flex">
+          {podcasts.map((item) => {
+          return (
+            <PodcastCard
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            displayImage={item.displayImage}
+          />
+          );
+          }
+          )}
+          </div>
         ) : (
           <p>No Current Podcasts</p>
         )}
