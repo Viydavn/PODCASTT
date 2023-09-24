@@ -77,4 +77,5 @@ a{
 .podcast-description{
   color: var(--purple-grey);
   text-align: left;
+  width: 100%;
 }

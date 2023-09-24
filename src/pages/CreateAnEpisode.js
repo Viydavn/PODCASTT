@@ -52,10 +52,12 @@ function CreateAnEpisodePage() {
         console.log(episodeData);
         
         console.log("Sucess");
+        toast.success("Episode Created!!!");
+        setLoading(false);
+        navigate (`/podcast/${id}`);
         setTitle("");
         setDesc("");
         setAudioFile("");
-        setLoading(false);
       } catch (e) {
         toast.error(e.message);
         setLoading(false);
