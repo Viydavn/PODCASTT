@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Header from "../components/common/Header/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { collection, onSnapshot, query} from "firebase/firestore";
 import { db } from "../firebase";
 import { setPodcasts } from "../slices/podcastSlice.js";
 import PodcastCard from "../components/common/Podcasts/PostcastCard/index.js";
+import InputComponent from "../components/common/Input/index.js";
+
 
 function PodcastsPage() {
   const dispatch = useDispatch();
   const podcasts = useSelector((state) => state.podcasts.podcasts);
-  // const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -31,28 +33,34 @@ function PodcastsPage() {
     };
   }, [dispatch]);
 
-  console.log(podcasts);
+  var filteredPodcasts = podcasts.filter((item)=> item.title.trim().toLowerCase().includes(search.trim().toLowerCase()));
+
   return (
     <div>
       <Header />
       <div className="input-wrapper" style={{ marginTop: "2rem" }}>
         <h1> Discover Podcasts </h1>
-        {podcasts.length>0 ? (
-          <div className="podcasts-flex">
-          {podcasts.map((item) => {
+        <InputComponent
+        state={search}
+        setState={setSearch}
+        placeholder="Search By Title"
+        type="text"
+      />
+        {filteredPodcasts.length>0 ? (
+          <div className="podcast-flex" style={{ marginTop: "2rem" }}>
+          {filteredPodcasts.map((item) => {
           return (
-            <PodcastCard
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            displayImage={item.displayImage}
+            <PodcastCard 
+            id = {item.id}
+            title = {item.title}
+            displayImage = {item.displayImage}
           />
           );
           }
           )}
           </div>
         ) : (
-          <p>No Current Podcasts</p>
+          <p>{search ? "Podcast Not Found":"No Podcasts on the platform"}</p>
         )}
       </div>
     </div>

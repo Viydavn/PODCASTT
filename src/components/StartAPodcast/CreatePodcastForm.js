@@ -52,7 +52,7 @@ function CreatePodcastForm() {
               bannerImage : bannerImageUrl,
               createdBy: auth.currentUser.uid,
             }
-            const docRef = await addDoc(collection(db, "Podcasts"), podcastData);
+            const docRef = await addDoc(collection(db, "podcasts"), podcastData);
             toast.success("Podcast Created!!!");
             setTitle("");
             setDesc("");
