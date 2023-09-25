@@ -6,15 +6,17 @@ import Header from '../components/common/Header';
 import Button from '../components/common/Button';
 import { toast } from 'react-toastify';
 import { signOut } from 'firebase/auth';
+import Loader from '../components/common/Loader';
 
 function Profile() {
   const user = useSelector((state)=>state.user.user);
   console.log("My User", user);
-
-  function handleLogout(){
+  
   if(!user){
-return <p>Loading...</p>;
-  }
+    return <Loader />;
+      }
+   function handleLogout(){
+ 
   signOut(auth).then(()=>{
     toast.success("User Logged Out!");
 })
